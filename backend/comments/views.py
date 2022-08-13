@@ -1,3 +1,6 @@
+# 08/13/2022 : made by Semi GET works
+
+
 from functools import partial
 from django.shortcuts import get_object_or_404
 from rest_framework import status
