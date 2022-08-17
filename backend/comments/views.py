@@ -14,6 +14,8 @@ from .serializers import CommentSerializer
 
 # Create your views here.
 
+# Create your views here.
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_all_comments(request, id):
@@ -39,3 +41,32 @@ def update_comment(request, pk):
         serializer.save(user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PATCH'])
+@permission_classes([IsAuthenticated])
+def likes(request, id):
+    #comments = Comment.objects.filter(video_id=id, likes=0)
+    
+
+    type = request.query_params.get('type')
+    print(type)
+
+
+    if type == 'likes':
+        comments = Comment.objects.get(pk=id)
+    
+        data = {'likes': comments.likes + int(1)}
+        serializer = CommentSerializer(comments, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    elif type == 'dislikes':
+        comments = Comment.objects.get(pk=id)
+
+        data = {'dislikes': comments.dislikes + int(1)}
+        serializer = CommentSerializer(comments, data=data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
