@@ -7,4 +7,6 @@ urlpatterns = [
     path('', views.post_comment),
     
     path('<int:pk>/update/', views.update_comment),
+    
+    path('like_status/<str:id>/', views.likes),
 ]

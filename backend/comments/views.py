@@ -46,7 +46,7 @@ def update_comment(request, pk):
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def likes(request, id):
-    #comments = Comment.objects.filter(video_id=id, likes=0)
+  
     
 
     type = request.query_params.get('type')
