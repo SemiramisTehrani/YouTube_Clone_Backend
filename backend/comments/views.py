@@ -2,13 +2,16 @@
 
 
 from functools import partial
+from msilib.schema import Component
+from telnetlib import STATUS
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 
-# from backend import comments
+#from backend import comments
+
 from .models import Comment
 from .serializers import CommentSerializer
 
@@ -80,27 +83,40 @@ def update_comment(request, pk):
 @api_view(['PATCH'])
 @permission_classes([IsAuthenticated])
 def likes(request, id):
-  
+    comment = get_object_or_404(Comment, id=id)
+    data = {'likes': comments.likes + int(1)}
+    serializer = CommentSerializer(comment, data=data, partial=True)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data, status=status.HTTP_418_IM_A_TEAPOT)
+
+
+
+
+
+
+# @api_view(['PATCH'])
+# @permission_classes([IsAuthenticated])
+# def likes(request, id):
+
+#     type = request.query_params.get('type')
+#     print(type)
+
+
+#     if type == 'likes':
+#         comments = Comment.objects.get(pk=id)
     
-
-    type = request.query_params.get('type')
-    print(type)
-
-
-    if type == 'likes':
-        comments = Comment.objects.get(pk=id)
+#         data = {'likes': comments.likes + int(1)}
+#         serializer = CommentSerializer(comments, data=data, partial=True)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_200_OK)
     
-        data = {'likes': comments.likes + int(1)}
-        serializer = CommentSerializer(comments, data=data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    elif type == 'dislikes':
-        comments = Comment.objects.get(pk=id)
+#     elif type == 'dislikes':
+#         comments = Comment.objects.get(pk=id)
 
-        data = {'dislikes': comments.dislikes + int(1)}
-        serializer = CommentSerializer(comments, data=data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_200_OK)
+#         data = {'dislikes': comments.dislikes + int(1)}
+#         serializer = CommentSerializer(comments, data=data, partial=True)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data, status=status.HTTP_200_OK)

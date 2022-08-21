@@ -369,7 +369,7 @@
 						}
 					},
 					"response": []
-				}
+				},
 				{
 					"name": "PATCH Like (protected)",
 					"request": {
