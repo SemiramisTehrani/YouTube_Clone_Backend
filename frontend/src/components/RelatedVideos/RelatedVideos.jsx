@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import keys from "../../API_keys.json";
-import "../RelatedVideos/RelatedVideos.css";
+
+
+import {KEY} from "./localKey";
+
+import "./RelatedVideos.css";
 
 const RelatedVideos = (props) => {
   const [listRelatedVideos, setListRelatedVideos] = useState([]);
@@ -10,7 +13,7 @@ const RelatedVideos = (props) => {
     console.log("Called getRelatedVideos successfully");
     if (props.videoId) {
       let response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${props.videoId}&type=video&key=${keys.googleAPIkey}&part=snippet`
+        `https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${props.videoId}&type=video&key=${KEY.googleAPIkey}&part=snippet`
       );
       setListRelatedVideos(response.data.items);
       console.log("related video list", response.data.items);

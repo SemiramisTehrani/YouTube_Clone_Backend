@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { Component, useState, useEffect } from "react";
 import Reply from "../Reply/Reply";
 import Card from "react-bootstrap";
-import "../Comment/Comment.css";
+import "./Comment.css";
 
 const Comment = (props) => {
   const [comments, setComments] = useState([]);
