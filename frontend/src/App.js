@@ -56,9 +56,28 @@ import PrivateRoute from "./utils/PrivateRoute";
 function App() {
   const [videoTitle, setVideoTitle] = useState("");
   const [user, setUser] = useState(null);
-  const [currentVideoId, setVideoId] = useState("");
-  const [search, setSearch] = useState("");
+  const [currentVideoId, setVideoId] = useState("TdrL3QxjyVw");
+  const [search, setSearch] = useState("cat");
   const [storedUserName, setStoredUserName] = useState("");
+
+  const [comments, setComments] = useState([]);
+
+  async function getVideoComment(videoId) {
+    let response = await axios.get(
+      `http://127.0.0.1:8000/comments/${videoId}/`
+    );
+    setComments(response.data);
+  }
+
+  useEffect(() => {
+    let mounted = true;
+    if (mounted) {
+      getVideoComment(currentVideoId);
+      console.log("mounted test");
+    }
+    return () => (mounted = false);
+  }, [currentVideoId]);
+
 
   useEffect(() => {
     const jwt = localStorage.getItem("token");
@@ -72,7 +91,7 @@ function App() {
 
   async function getVideo(request) {
     let response = await axios.get(
-      `https://www.googleapis.com/youtube/v3/search?q=${search}&key=${KEY.googleAPIkey}&type=video`
+      `https://www.googleapis.com/youtube/v3/search?q=${search}&key=${KEY}&type=video`
     );
     console.log("getVideo function response data", response.data);
     try {

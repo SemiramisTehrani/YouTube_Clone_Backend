@@ -13,7 +13,7 @@ const RelatedVideos = (props) => {
     console.log("Called getRelatedVideos successfully");
     if (props.videoId) {
       let response = await axios.get(
-        `https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${props.videoId}&type=video&key=${KEY.googleAPIkey}&part=snippet`
+        `https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${props.videoId}&type=video&key=${KEY}&part=snippet`
       );
       setListRelatedVideos(response.data.items);
       console.log("related video list", response.data.items);
