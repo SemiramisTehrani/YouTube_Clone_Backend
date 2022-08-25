@@ -36,7 +36,7 @@ const NavBar = (props) => {
   return (
     <Navbar bg="light" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="#">YouTube-ish</Navbar.Brand>
+        <Navbar.Brand href="#">YouTube-by-Semi</Navbar.Brand>
 
         <SearchBar
           search={props.search}

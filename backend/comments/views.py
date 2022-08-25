@@ -84,7 +84,7 @@ def update_comment(request, pk):
 @permission_classes([IsAuthenticated])
 def likes(request, id):
     comment = get_object_or_404(Comment, id=id)
-    data = {'likes': comments.likes + int(1)}
+    data = {'likes': comment.likes + int(1)}
     serializer = CommentSerializer(comment, data=data, partial=True)
     serializer.is_valid(raise_exception=True)
     serializer.save()

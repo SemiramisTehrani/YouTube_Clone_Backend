@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 
-import {KEY} from "./localKey";
+import {KEY} from "../../localKey";
 
 import "./RelatedVideos.css";
 

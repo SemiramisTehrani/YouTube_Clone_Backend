@@ -5,7 +5,9 @@ import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 
 import axios from "axios";
-import {KEY} from "./localKey";
+
+//import {} from "./localKey_Semi";
+import {KEY} from "./localKey.js";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
